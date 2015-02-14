@@ -19,8 +19,8 @@ import java.util.logging.Logger;
  * @author Keylla
  */
 public class Client {
-    private Registry registry;
-    private PostitPPDInt stub;
+    private Registry registry = null;
+    private PostitPPDInt stub = null;
     
     public void connectClient(String ip) throws RemoteException {
         registry = LocateRegistry.getRegistry(ip, 5000);

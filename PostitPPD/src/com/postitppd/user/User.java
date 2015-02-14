@@ -1,13 +1,17 @@
 package com.postitppd.user;
 
+import java.io.Serializable;
+
 /**
  * Created by Keylla on 07/02/2015.
  */
-public class User {
+public class User implements Serializable{
     private int id;
     private String name;
     private String login;
     private String senha;
+    
+   public User(){}; 
 
     public User (int id, String name,String login, String senha){
         this.id = id;

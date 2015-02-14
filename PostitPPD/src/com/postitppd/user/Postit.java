@@ -1,9 +1,11 @@
 package com.postitppd.user;
 
+import java.io.Serializable;
+
 /**
  * Created by Keylla on 07/02/2015.
  */
-public class Postit {
+public class Postit implements Serializable {
 
     private int idUser;
     private int idPost;

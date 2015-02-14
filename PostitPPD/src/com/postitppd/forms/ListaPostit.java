@@ -7,6 +7,7 @@ package com.postitppd.forms;
 
 import com.postitppd.rmi.Client;
 import com.postitppd.user.User;
+import javax.swing.JLabel;
 
 /**
  *
@@ -14,7 +15,7 @@ import com.postitppd.user.User;
  */
 public class ListaPostit extends javax.swing.JFrame {
     public Client clientListPost;
-    public User userListPost;
+    public User userListPost ;
     /**
      * Creates new form CadastraPostit
      */
@@ -22,6 +23,10 @@ public class ListaPostit extends javax.swing.JFrame {
         initComponents();
     }
 
+    public JLabel getJlbBemVindo() {
+        return jlbBemVindo;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,7 +106,7 @@ public class ListaPostit extends javax.swing.JFrame {
         // TODO add your handling code here:
         CadastraPostit cadp = new CadastraPostit();
         cadp.clientCadPost = this.clientListPost;
-        //cadp.clientCadPost.
+        cadp.userCadPost = this.userListPost;
         cadp.setVisible(true);
     }//GEN-LAST:event_jbtNovoActionPerformed
 

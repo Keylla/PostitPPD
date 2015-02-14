@@ -73,7 +73,7 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
     public User getUser(String iduser) throws RemoteException {
         int i = 0;
         String login = "";
-        User user;
+        User user = new User();
         String userConnect = iduser;
         Gson gson = new Gson();
         Map<String, Object> map = new HashMap<String, Object>();
@@ -94,7 +94,7 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
         } catch (ParseException ex) {
             Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
         }  
-        user = mj.carregaUser(jsonObject.toJSONString());
+        user =  mj.carregaUser(jsonObject.toJSONString());
         return user;
     }
 

@@ -6,6 +6,7 @@
 package com.postitppd.forms;
 
 import com.postitppd.rmi.Client;
+import com.postitppd.user.User;
 
 /**
  *
@@ -13,6 +14,7 @@ import com.postitppd.rmi.Client;
  */
 public class CadastraPostit extends javax.swing.JFrame {
     public Client clientCadPost;
+    public User userCadPost;
     /**
      * Creates new form CadastraPosit
      */

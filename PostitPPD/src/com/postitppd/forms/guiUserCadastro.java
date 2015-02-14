@@ -6,6 +6,10 @@
 package com.postitppd.forms;
 
 import com.postitppd.rmi.Client;
+import com.postitppd.user.User;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -124,8 +128,15 @@ public class guiUserCadastro extends javax.swing.JFrame {
         String login = jtxtUser.getText();
         String senha = jpfSenha.getText();
         clientUser.cadastraUser(nome, login, senha);
-        
-    
+        ListaPostit lpost = new ListaPostit();
+        lpost.clientListPost = clientUser;
+       try {
+           lpost.userListPost =  clientUser.getUser(this.jtxtUser.getText());
+       } catch (RemoteException ex) {
+           Logger.getLogger(guiUserLogin.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName());
+        lpost.setVisible(true);
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     /**
