@@ -11,6 +11,7 @@ import com.postitppd.user.User;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JList;
 
 /**
  *
@@ -29,15 +30,25 @@ public class ListaPostit extends javax.swing.JFrame {
     public JLabel getJlbBemVindo() {
         return jlbBemVindo;
     }
+
+    public JList getjListPostits() {
+        return jListPostits;
+    }
+    
+    
     
     public void carregaPostits(String loginuser) throws RemoteException{
         ArrayList<Postit> postits = new ArrayList<>();
         postits = clientListPost.getUserPostit(userListPost.getLogin());
         Object[] es = new Object[postits.size()];
+        FormPostit formp;
         for (int i = 0; i <= postits.size()-1; i++){
             es[i] = postits.get(i).getPostText();
+            formp = new FormPostit();
+            formp.getJtxtpostit().setText(postits.get(i).getPostText());
+            formp.setVisible(true);
         } 
-        this.jListPostits.setListData(es);
+        this.jListPostits.setListData(es);  
     }
     
     /**

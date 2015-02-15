@@ -88,8 +88,6 @@ public class CadastraPostit extends javax.swing.JFrame {
 
     private void jbtPostSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPostSalvarActionPerformed
         // TODO add your handling code here:
-      // clientCadPost. 
-        
       clientCadPost.cadastraPostit(userCadPost.getLogin(), this.jtxtPostText.getText());
         try {
             listCadPost.carregaPostits(userCadPost.getLogin());
