@@ -224,6 +224,7 @@ public class guiUserLogin extends javax.swing.JDialog {
                System.out.println("Não foi possível iniciar usuário na guiUserLogin");
            }
             doClose(RET_CANCEL);  
+            lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName());  
             lpost.setVisible(true);
        }
        else
@@ -253,20 +254,22 @@ public class guiUserLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_jLinkCadastroMouseClicked
 
     private void jbStartServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbStartServerActionPerformed
-       try {
-           // TODO add your handling code here:
-           
-           rmiServer = new Server();
-           regitryServer = new RecordServer();
-           regitryServer.connectServer(rmiServer);
-       } catch (RemoteException ex) {
-           Logger.getLogger(guiUserLogin.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        this.jLinkCadastro.setEnabled(true);
-        this.okButton.setEnabled(true);
-        this.jTextUser.setEnabled(true);
-        this.jPassUser.setEnabled(true);
-        this.jbStartServer.setEnabled(false);
+        if (this.jtxtIpServer.getText().isEmpty())
+             JOptionPane.showMessageDialog(null, "Deve ser informado IP do servidor!"); 
+        else{
+            try {
+               rmiServer = new Server();
+               regitryServer = new RecordServer();
+               regitryServer.connectServer(rmiServer);
+           } catch (RemoteException ex) {
+               Logger.getLogger(guiUserLogin.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            this.jLinkCadastro.setEnabled(true);
+            this.okButton.setEnabled(true);
+            this.jTextUser.setEnabled(true);
+            this.jPassUser.setEnabled(true);
+            this.jbStartServer.setEnabled(false);
+        }
     }//GEN-LAST:event_jbStartServerActionPerformed
     
     private void doClose(int retStatus) {
