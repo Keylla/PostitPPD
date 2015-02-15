@@ -8,6 +8,8 @@ package com.postitppd.forms;
 import com.postitppd.rmi.Client;
 import com.postitppd.user.Postit;
 import com.postitppd.user.User;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -22,6 +24,7 @@ public class ListaPostit extends javax.swing.JFrame {
     public Client clientListPost;
     public User userListPost ;
     private ArrayList<JFrame> listJframe;
+
     /**
      * Creates new form CadastraPostit
      */
@@ -41,8 +44,11 @@ public class ListaPostit extends javax.swing.JFrame {
     
     
     public void carregaPostits(String loginuser) throws RemoteException{
+        Toolkit toolkit = Toolkit.getDefaultToolkit(); 
+        Dimension screenSize = toolkit.getScreenSize(); 
+        int x = (screenSize.width/2)+350 ; 
+        int y = (screenSize.height/2)-350; 
         ArrayList<Postit> postits = new ArrayList<>();
-        
         postits = clientListPost.getUserPostit(userListPost.getLogin());
         Object[] es = new Object[postits.size()];
         FormPostit formp;
@@ -60,13 +66,13 @@ public class ListaPostit extends javax.swing.JFrame {
             }
             formp = new FormPostit();
             formp.getJtxtpostit().setText(postits.get(i).getPostText());
-            listJframe.add(formp);
-            for( JFrame frame : listJframe){ 
-              frame.setLocationRelativeTo(null);    
+            listJframe.add(formp);  
+        }
+          for( JFrame frame : listJframe){ 
+              frame.setLocation(x, y);
               frame.setVisible(true);
+              x=x-100;
             };
-            
-        } 
         this.jListPostits.setListData(es);  
     }
     
