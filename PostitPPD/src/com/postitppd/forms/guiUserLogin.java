@@ -45,6 +45,7 @@ public class guiUserLogin extends javax.swing.JDialog {
      */
     public guiUserLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setLocationRelativeTo(null);
         initComponents();
         this.okButton.setEnabled(false);
         this.jTextUser.setEnabled(false);
@@ -224,7 +225,8 @@ public class guiUserLogin extends javax.swing.JDialog {
                System.out.println("Não foi possível iniciar usuário na guiUserLogin");
            }
             doClose(RET_CANCEL);  
-            lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName());  
+            lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName()); 
+            lpost.setLocationRelativeTo(null);
             lpost.setVisible(true);
        }
        else
@@ -248,6 +250,7 @@ public class guiUserLogin extends javax.swing.JDialog {
         guiUserCadastro guiUser = new guiUserCadastro (); 
         guiUser.clientUser = getClient();
         doClose(RET_CANCEL);
+        guiUser.setLocationRelativeTo(null);
         guiUser.setVisible(true); 
         
        

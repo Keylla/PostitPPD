@@ -137,6 +137,7 @@ public class guiUserCadastro extends javax.swing.JFrame {
        }
         lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName());
         this.dispose();
+        lpost.setLocationRelativeTo(null);
         lpost.setVisible(true);
     }//GEN-LAST:event_jbSalvarActionPerformed
 

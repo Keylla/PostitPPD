@@ -61,7 +61,8 @@ public class ListaPostit extends javax.swing.JFrame {
             formp = new FormPostit();
             formp.getJtxtpostit().setText(postits.get(i).getPostText());
             listJframe.add(formp);
-            for( JFrame frame : listJframe){  
+            for( JFrame frame : listJframe){ 
+              frame.setLocationRelativeTo(null);    
               frame.setVisible(true);
             };
             
@@ -144,6 +145,7 @@ public class ListaPostit extends javax.swing.JFrame {
         cadp.clientCadPost = this.clientListPost;
         cadp.userCadPost = this.userListPost;
         cadp.listCadPost = this;
+        cadp.setLocationRelativeTo(null);
         cadp.setVisible(true);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
