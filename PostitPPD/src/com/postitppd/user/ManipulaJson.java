@@ -85,28 +85,28 @@ public class ManipulaJson {
     }
     
     public User carregaUser(String jsonUser){
-    Gson gson = new Gson();
-    Map<String, Object> map = new HashMap<String, Object>();
-    map = (Map<String, Object>)gson.fromJson(jsonUser, map.getClass());
-    
-    String id = (String) map.get("id");
-    String nome = (String) map.get("nome");
-    String login = (String) map.get("login");
-    String senha = (String) map.get("senha");
-    User user = new User(parseInt(id),nome,login,senha);
-    return user;
+        Gson gson = new Gson();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map = (Map<String, Object>)gson.fromJson(jsonUser, map.getClass());
+
+        String id = (String) map.get("id");
+        String nome = (String) map.get("nome");
+        String login = (String) map.get("login");
+        String senha = (String) map.get("senha");
+        User user = new User(parseInt(id),nome,login,senha);
+        return user;
     }
     
-     public Postit carregaPostit(String jsonPostit){
-    Gson gson = new Gson();
-    Map<String, Object> map = new HashMap<String, Object>();
-    map = (Map<String, Object>)gson.fromJson(jsonPostit, map.getClass());
-    
-    String loginUser = (String) map.get("loginUser");
-    String idPost = (String) map.get("idPost");
-    String postText = (String) map.get("postText");
-    Postit postit = new Postit(loginUser,parseInt(idPost),postText);
-    return postit;
+    public Postit carregaPostit(String jsonPostit){
+        Gson gson = new Gson();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map = (Map<String, Object>)gson.fromJson(jsonPostit, map.getClass());
+
+        String loginUser = (String) map.get("loginUser");
+        String idPost = (String) map.get("idPost");
+        String postText = (String) map.get("postText");
+        Postit postit = new Postit(loginUser,parseInt(idPost),postText);
+        return postit;
     }
-    
+ 
 }

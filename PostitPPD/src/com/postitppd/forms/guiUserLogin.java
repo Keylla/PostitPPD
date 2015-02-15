@@ -18,6 +18,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -205,16 +206,28 @@ public class guiUserLogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+
         setClient();
-        ListaPostit lpost = new ListaPostit();
-        lpost.clientListPost = getClient();
+        boolean valida = false;
        try {
-           lpost.userListPost =  getClient().getUser(this.jTextUser.getText());
+           valida = this.getClient().validaLogin(this.jTextUser.getText(), this.jPassUser.getText());
        } catch (RemoteException ex) {
-           System.out.println("Não foi possível iniciar usuário na guiUserLogin");
+           System.out.println("Não foi possível validar entrada!");
        }
-        doClose(RET_CANCEL);
-        lpost.setVisible(true);
+        if(valida) {
+            ListaPostit lpost = new ListaPostit();
+            lpost.clientListPost = getClient();
+           try {
+               lpost.userListPost =  getClient().getUser(this.jTextUser.getText());
+               lpost.carregaPostits(lpost.userListPost.getLogin());
+           } catch (RemoteException ex) {
+               System.out.println("Não foi possível iniciar usuário na guiUserLogin");
+           }
+            doClose(RET_CANCEL);  
+            lpost.setVisible(true);
+       }
+       else
+        JOptionPane.showMessageDialog(null, "Login ou Senha inválidos!");   
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed

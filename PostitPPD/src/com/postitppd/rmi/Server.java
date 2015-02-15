@@ -110,4 +110,16 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
         mj.escreveJsonPostit(loginUser, idPost, postText);
 
     }
+    
+    @Override
+    public boolean validaLogin(String login, String senha) throws RemoteException{
+        boolean loginOK = false;
+        User userLogin = null;
+        userLogin = this.getUser(login);
+        if(userLogin != null && userLogin.getSenha().equals(senha)){
+            loginOK = true;  
+        }
+        return loginOK;
+    }
+    
 }

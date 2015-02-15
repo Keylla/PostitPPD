@@ -58,4 +58,8 @@ public class Client {
     public ArrayList<Postit> getUserPostit(String loginUser) throws RemoteException{
         return stub.getUserPostit(loginUser);
     }
+    
+    public boolean validaLogin(String login, String senha) throws RemoteException{
+       return stub.validaLogin(login, senha);     
+    }
 }

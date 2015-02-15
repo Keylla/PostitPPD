@@ -15,5 +15,6 @@ public interface PostitPPDInt extends Remote{
     public ArrayList<Postit> getUserPostit(String loginUser) throws RemoteException;
     public void setUser(String nome, String login, String senha) throws RemoteException;
     public void setPostit(String loginUser, String postText) throws RemoteException;
+    public boolean validaLogin(String login, String senha) throws RemoteException;
 
 }
