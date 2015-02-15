@@ -55,7 +55,7 @@ public class ManipulaJson {
         }
     }
     
-    public void escreveJsonPostit(int idUser, int idPost, String postText){
+    public void escreveJsonPostit(String loginUser, int idPost, String postText){
         JSONArray jsonArray = new JSONArray();
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = new JSONObject();       
@@ -69,7 +69,7 @@ public class ManipulaJson {
                 writeFile.write("[]");
                 writeFile.close();
             }
-            jsonObject.put("idUser", String.valueOf(idUser));
+            jsonObject.put("loginUser", loginUser);
             jsonObject.put("idPost", String.valueOf(idPost));
             jsonObject.put("postText", postText);
             jsonArray = (JSONArray) parser.parse(new FileReader(saidaPostit));
@@ -102,10 +102,10 @@ public class ManipulaJson {
     Map<String, Object> map = new HashMap<String, Object>();
     map = (Map<String, Object>)gson.fromJson(jsonPostit, map.getClass());
     
-    String idUser = (String) map.get("idUser");
+    String loginUser = (String) map.get("loginUser");
     String idPost = (String) map.get("idPost");
     String postText = (String) map.get("postText");
-    Postit postit = new Postit(parseInt(idUser),parseInt(idPost),postText);
+    Postit postit = new Postit(loginUser,parseInt(idPost),postText);
     return postit;
     }
     

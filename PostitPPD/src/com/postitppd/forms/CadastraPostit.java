@@ -32,16 +32,16 @@ public class CadastraPostit extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jtxtPostText = new javax.swing.JTextArea();
         jbtPostSalvar = new javax.swing.JButton();
         jbtPostCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jtxtPostText.setColumns(20);
+        jtxtPostText.setLineWrap(true);
+        jtxtPostText.setRows(5);
+        jScrollPane1.setViewportView(jtxtPostText);
 
         jbtPostSalvar.setText("Salvar");
         jbtPostSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -86,6 +86,7 @@ public class CadastraPostit extends javax.swing.JFrame {
         // TODO add your handling code here:
       // clientCadPost. 
         
+      clientCadPost.cadastraPostit(userCadPost.getLogin(), this.jtxtPostText.getText());
     }//GEN-LAST:event_jbtPostSalvarActionPerformed
 
     /**
@@ -126,8 +127,8 @@ public class CadastraPostit extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton jbtPostCancel;
     private javax.swing.JButton jbtPostSalvar;
+    private javax.swing.JTextArea jtxtPostText;
     // End of variables declaration//GEN-END:variables
 }

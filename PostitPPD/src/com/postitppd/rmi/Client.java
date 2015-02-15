@@ -41,11 +41,8 @@ public class Client {
         }
     }
     public void cadastraPostit(String User, String postit){
-        int idUser = 0;
         try {
-            User user = stub.getUser(User);
-            idUser = user.getId();
-            stub.setPostit(idUser, postit);
+            stub.setPostit(User, postit);
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }

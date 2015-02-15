@@ -7,23 +7,25 @@ import java.io.Serializable;
  */
 public class Postit implements Serializable {
 
-    private int idUser;
+    private String loginUser;
     private int idPost;
     private String postText;
 
-    public Postit (int idUser, int idPost, String postText){
-        this.idUser = idUser;
+    public Postit (String loginUser, int idPost, String postText){
+        this.loginUser = loginUser;
         this.idPost = idPost;
         this.postText = postText;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public String getLoginUser() {
+        return loginUser;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setLoginUser(String loginUser) {
+        this.loginUser = loginUser;
     }
+
+
 
     public int getIdPost() {
         return idPost;
@@ -43,7 +45,7 @@ public class Postit implements Serializable {
 
     @Override
     public String toString() {
-        return "Postit{" + "idUser=" + idUser + ", idPost=" + idPost + ", postText=" + postText + '}';
+        return "Postit{" + "idUser=" + loginUser + ", idPost=" + idPost + ", postText=" + postText + '}';
     }
    
     

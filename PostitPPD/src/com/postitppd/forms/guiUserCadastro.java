@@ -133,7 +133,7 @@ public class guiUserCadastro extends javax.swing.JFrame {
        try {
            lpost.userListPost =  clientUser.getUser(this.jtxtUser.getText());
        } catch (RemoteException ex) {
-           Logger.getLogger(guiUserLogin.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.println("Não foi possível iniciar usuário na guiUserCadastro");
        }
         lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName());
         lpost.setVisible(true);

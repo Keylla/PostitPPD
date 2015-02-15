@@ -39,11 +39,11 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
    }
 
     @Override
-    public ArrayList<Postit> getUserPostit(int idUser) throws RemoteException {
+    public ArrayList<Postit> getUserPostit(String loginUser) throws RemoteException {
         int i = 0;
         String idUserPost = "";
         ArrayList<Postit> aPost = new ArrayList<Postit>();
-        String userConnect = String.valueOf(idUser);
+        String userConnect = loginUser;
         Gson gson = new Gson();
         Map<String, Object> map = new HashMap<String, Object>();
         String saidaUserPostit = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaPostit.json";;
@@ -55,7 +55,7 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
             while (i<= jsonArray.size()-1){     
               jsonObject = (JSONObject)jsonArray.get(i);
               map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
-              idUserPost = (String) map.get("idUser");
+              idUserPost = (String) map.get("loginUser");
               if(userConnect.equals(idUserPost)){
                aPost.add(mj.carregaPostit(jsonObject.toJSONString()));
               }
@@ -105,9 +105,9 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
     }
 
     @Override
-    public void setPostit(int idUser, String postText) throws RemoteException {
+    public void setPostit(String loginUser, String postText) throws RemoteException {
         idPost = idPost+1;
-        mj.escreveJsonPostit(idUser, idPost, postText);
+        mj.escreveJsonPostit(loginUser, idPost, postText);
 
     }
 }

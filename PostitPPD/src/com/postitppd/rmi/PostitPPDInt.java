@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public interface PostitPPDInt extends Remote{
     
     public User getUser(String user)throws RemoteException;
-    public ArrayList<Postit> getUserPostit(int idUser) throws RemoteException;
+    public ArrayList<Postit> getUserPostit(String loginUser) throws RemoteException;
     public void setUser(String nome, String login, String senha) throws RemoteException;
-    public void setPostit(int idUser, String postText) throws RemoteException;
+    public void setPostit(String loginUser, String postText) throws RemoteException;
 
 }

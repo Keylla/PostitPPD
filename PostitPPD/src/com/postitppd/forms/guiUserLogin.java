@@ -211,7 +211,7 @@ public class guiUserLogin extends javax.swing.JDialog {
        try {
            lpost.userListPost =  getClient().getUser(this.jTextUser.getText());
        } catch (RemoteException ex) {
-           Logger.getLogger(guiUserLogin.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.println("Não foi possível iniciar usuário na guiUserLogin");
        }
         lpost.setVisible(true);
     }//GEN-LAST:event_okButtonActionPerformed
