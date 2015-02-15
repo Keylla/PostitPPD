@@ -10,6 +10,7 @@ import com.postitppd.user.Postit;
 import com.postitppd.user.User;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
@@ -20,6 +21,7 @@ import javax.swing.JList;
 public class ListaPostit extends javax.swing.JFrame {
     public Client clientListPost;
     public User userListPost ;
+    private ArrayList<JFrame> listJframe;
     /**
      * Creates new form CadastraPostit
      */
@@ -39,19 +41,28 @@ public class ListaPostit extends javax.swing.JFrame {
     
     public void carregaPostits(String loginuser) throws RemoteException{
         ArrayList<Postit> postits = new ArrayList<>();
+        listJframe = new ArrayList<>();
         postits = clientListPost.getUserPostit(userListPost.getLogin());
         Object[] es = new Object[postits.size()];
         FormPostit formp;
+         for( JFrame frame : listJframe){  
+              frame.setVisible(true);
+              listJframe.remove(frame);
+            };
         for (int i = 0; i <= postits.size()-1; i++){
             if(postits.get(i).getPostText().length() >20){
-                es[i] = postits.get(i).getPostText().substring(1, 17)+"...";
+                es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
             }
             else { 
             es[i] = postits.get(i).getPostText();
             }
             formp = new FormPostit();
             formp.getJtxtpostit().setText(postits.get(i).getPostText());
-            formp.setVisible(true);
+            listJframe.add(formp);
+            for( JFrame frame : listJframe){  
+              frame.setVisible(true);
+            };
+            
         } 
         this.jListPostits.setListData(es);  
     }
