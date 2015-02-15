@@ -27,6 +27,7 @@ public class ListaPostit extends javax.swing.JFrame {
      */
     public ListaPostit() {
         initComponents();
+        listJframe = new ArrayList<>();
     }
 
     public JLabel getJlbBemVindo() {
@@ -41,14 +42,15 @@ public class ListaPostit extends javax.swing.JFrame {
     
     public void carregaPostits(String loginuser) throws RemoteException{
         ArrayList<Postit> postits = new ArrayList<>();
-        listJframe = new ArrayList<>();
+        
         postits = clientListPost.getUserPostit(userListPost.getLogin());
         Object[] es = new Object[postits.size()];
         FormPostit formp;
          for( JFrame frame : listJframe){  
-              frame.setVisible(true);
-              listJframe.remove(frame);
+              frame.setFocusable(true);
+              frame.dispose();
             };
+        listJframe.removeAll(listJframe);
         for (int i = 0; i <= postits.size()-1; i++){
             if(postits.get(i).getPostText().length() >20){
                 es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
