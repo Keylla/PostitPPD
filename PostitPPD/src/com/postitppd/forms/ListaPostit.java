@@ -6,7 +6,10 @@
 package com.postitppd.forms;
 
 import com.postitppd.rmi.Client;
+import com.postitppd.user.Postit;
 import com.postitppd.user.User;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 
 /**
@@ -27,6 +30,16 @@ public class ListaPostit extends javax.swing.JFrame {
         return jlbBemVindo;
     }
     
+    public void carregaPostits(String loginuser) throws RemoteException{
+        ArrayList<Postit> postits = new ArrayList<>();
+        postits = clientListPost.getUserPostit(userListPost.getLogin());
+        Object[] es = new Object[postits.size()];
+        for (int i = 0; i <= postits.size()-1; i++){
+            es[i] = postits.get(i).getPostText();
+        } 
+        this.jListPostits.setListData(es);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,7 +51,7 @@ public class ListaPostit extends javax.swing.JFrame {
 
         jlbBemVindo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jListPostits = new javax.swing.JList();
         jbtNovo = new javax.swing.JButton();
         jbtExcluir = new javax.swing.JButton();
 
@@ -47,12 +60,7 @@ public class ListaPostit extends javax.swing.JFrame {
         jlbBemVindo.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jlbBemVindo.setText("Bem Vindo!");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jListPostits);
 
         jbtNovo.setText("Novo");
         jbtNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +115,7 @@ public class ListaPostit extends javax.swing.JFrame {
         CadastraPostit cadp = new CadastraPostit();
         cadp.clientCadPost = this.clientListPost;
         cadp.userCadPost = this.userListPost;
+        cadp.listCadPost = this;
         cadp.setVisible(true);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
@@ -147,7 +156,7 @@ public class ListaPostit extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList jList1;
+    private javax.swing.JList jListPostits;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtExcluir;
     private javax.swing.JButton jbtNovo;

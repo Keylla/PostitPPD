@@ -136,6 +136,7 @@ public class guiUserCadastro extends javax.swing.JFrame {
            System.out.println("Não foi possível iniciar usuário na guiUserCadastro");
        }
         lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName());
+        this.dispose();
         lpost.setVisible(true);
     }//GEN-LAST:event_jbSalvarActionPerformed
 

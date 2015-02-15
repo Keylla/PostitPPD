@@ -213,6 +213,7 @@ public class guiUserLogin extends javax.swing.JDialog {
        } catch (RemoteException ex) {
            System.out.println("Não foi possível iniciar usuário na guiUserLogin");
        }
+        doClose(RET_CANCEL);
         lpost.setVisible(true);
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -232,8 +233,9 @@ public class guiUserLogin extends javax.swing.JDialog {
         setClient();
         guiUserCadastro guiUser = new guiUserCadastro (); 
         guiUser.clientUser = getClient();
-        guiUser.setVisible(true); 
         doClose(RET_CANCEL);
+        guiUser.setVisible(true); 
+        
        
     }//GEN-LAST:event_jLinkCadastroMouseClicked
 

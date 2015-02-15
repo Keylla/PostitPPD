@@ -7,6 +7,9 @@ package com.postitppd.forms;
 
 import com.postitppd.rmi.Client;
 import com.postitppd.user.User;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,6 +18,7 @@ import com.postitppd.user.User;
 public class CadastraPostit extends javax.swing.JFrame {
     public Client clientCadPost;
     public User userCadPost;
+    public ListaPostit listCadPost;
     /**
      * Creates new form CadastraPosit
      */
@@ -87,6 +91,12 @@ public class CadastraPostit extends javax.swing.JFrame {
       // clientCadPost. 
         
       clientCadPost.cadastraPostit(userCadPost.getLogin(), this.jtxtPostText.getText());
+        try {
+            listCadPost.carregaPostits(userCadPost.getLogin());
+        } catch (RemoteException ex) {
+            Logger.getLogger(CadastraPostit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      this.dispose();
     }//GEN-LAST:event_jbtPostSalvarActionPerformed
 
     /**

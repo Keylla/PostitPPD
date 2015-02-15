@@ -5,12 +5,14 @@
  */
 package com.postitppd.rmi;
 
+import com.postitppd.user.Postit;
 import com.postitppd.user.User;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,4 +55,7 @@ public class Client {
         return stub.getUser(user);
     }
     
+    public ArrayList<Postit> getUserPostit(String loginUser) throws RemoteException{
+        return stub.getUserPostit(loginUser);
+    }
 }
