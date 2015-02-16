@@ -27,6 +27,7 @@ public class ListaPostit extends javax.swing.JFrame {
     public Client clientListPost;
     public User userListPost ;
     private ArrayList<JFrame> listJframe;
+    Object[] ids;
 
     /**
      * Creates new form CadastraPostit
@@ -54,6 +55,7 @@ public class ListaPostit extends javax.swing.JFrame {
         ArrayList<Postit> postits = new ArrayList<>();
         postits = clientListPost.getUserPostit(userListPost.getLogin());
         Object[] es = new Object[postits.size()];
+        ids = new Object[postits.size()];
         FormPostit formp;
          for( JFrame frame : listJframe){  
               frame.setFocusable(true);
@@ -65,6 +67,7 @@ public class ListaPostit extends javax.swing.JFrame {
                 es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
             }
             else { 
+            ids[i] = postits.get(i).getIdPost();    
             es[i] = postits.get(i).getPostText();
             }
             formp = new FormPostit();
@@ -75,7 +78,7 @@ public class ListaPostit extends javax.swing.JFrame {
               frame.setLocation(x, y);
               frame.setVisible(true);
               x=x-100;
-            };
+            }
         this.jListPostits.setListData(es);  
     }
     
@@ -163,7 +166,8 @@ public class ListaPostit extends javax.swing.JFrame {
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
       for( int i = 0; i<jListPostits.getSelectedIndices().length; i++){
-          this.clientListPost.removePostit(jListPostits.getSelectedIndices()[i], this.userListPost.getLogin());
+          int idRemov = (int) ids[(jListPostits.getSelectedIndices()[i])];
+          this.clientListPost.removePostit(idRemov, this.userListPost.getLogin());
         }  
         try {
             this.carregaPostits(this.userListPost.getLogin());

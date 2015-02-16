@@ -140,9 +140,9 @@ public class ManipulaJson {
     }
     
       public void removePostit(int idPostit, String userConnect){
-        int i = -1;
         int a =  0;
         String idUserPost;
+        String idPostRem = String.valueOf(idPostit);
         jsonArray = new JSONArray();
         parser = new JSONParser();
         jsonObject = new JSONObject();       
@@ -150,16 +150,16 @@ public class ManipulaJson {
 
         try {
             jsonArray = (JSONArray) parser.parse(new FileReader(saidaPostit));
-            while (i!=idPostit && a<= jsonArray.size()-1){
+            while (a<= jsonArray.size()-1){
              jsonObject = (JSONObject)jsonArray.get(a);  
               map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
               idUserPost = (String) map.get("loginUser");
-              if(userConnect.equals(idUserPost)){
-               i++;               
+              String idPost = (String) map.get("idPost");
+              if(userConnect.equals(idUserPost) && idPostRem.endsWith(idPost)){
+                 jsonArray.remove(jsonObject);           
                 }
               a++;
-            }  
-            jsonArray.remove(jsonObject);
+            }     
             FileWriter writeFile = new FileWriter(saidaPostit); 
             writeFile.write(jsonArray.toString());
             writeFile.close();
@@ -193,6 +193,48 @@ public class ManipulaJson {
         }  
         user =  carregaUser(jsonObject.toJSONString());
         return user;
+    }
+    
+    public int carregaProxIdPost(String login){
+        int maxId = 0;
+        ArrayList<Postit> apot = this.carregaPostitUser(login);
+        if(apot.size()>0){
+            for(int i = 0; i <= apot.size()-1; i++){
+                if(apot.get(i).getIdPost()>maxId)
+                    maxId = apot.get(i).getIdPost();
+            }
+        }
+        maxId = maxId+1;
+        return maxId;
+    }
+    
+     public int carregaProxIdUser(){
+        int maxId = 0;
+        int i = 0;
+        String id;
+        int idUser;
+        jsonObject = null;
+        jsonArray = new JSONArray();
+        parser = new JSONParser();
+        try {
+            jsonArray = (JSONArray) parser.parse(new FileReader(saidaUser));
+            while ( i<= jsonArray.size()-1){     
+              jsonObject = (JSONObject)jsonArray.get(i);
+              map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
+              id = (String) map.get("id");
+              idUser = Integer.valueOf(id);
+              if(idUser>maxId){
+                  maxId=idUser;
+              }
+              i++;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        maxId = maxId+1;
+        return maxId;
     }
  
 }

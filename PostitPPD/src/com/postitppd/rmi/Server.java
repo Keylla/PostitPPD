@@ -40,13 +40,13 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
 
     @Override
     public void setUser(String nome, String login, String senha) throws RemoteException {
-        id = id+1;
+        id = mj.carregaProxIdUser();
         mj.escreveJsonUser(id, nome, login, senha);
     }
 
     @Override
     public void setPostit(String loginUser, String postText) throws RemoteException {
-        idPost = idPost+1;
+        idPost = mj.carregaProxIdPost(loginUser);
         mj.escreveJsonPostit(loginUser, idPost, postText);
 
     }
