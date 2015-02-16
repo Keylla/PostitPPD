@@ -63,8 +63,8 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
     }
 
     @Override
-    public void removePostit(int idPostit) throws RemoteException {
-        mj.removePostit(idPostit);
+    public void removePostit(int idPostit, String userLogado) throws RemoteException {
+        mj.removePostit(idPostit, userLogado);
     }
     
 }

@@ -12,6 +12,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -106,20 +109,23 @@ public class ListaPostit extends javax.swing.JFrame {
         });
 
         jbtExcluir.setText("Excluir");
+        jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jlbBemVindo)
                         .addGap(0, 275, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
@@ -155,6 +161,17 @@ public class ListaPostit extends javax.swing.JFrame {
         cadp.setVisible(true);
     }//GEN-LAST:event_jbtNovoActionPerformed
 
+    private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+      for( int i = 0; i<jListPostits.getSelectedIndices().length; i++){
+          this.clientListPost.removePostit(jListPostits.getSelectedIndices()[i], this.userListPost.getLogin());
+        }  
+        try {
+            this.carregaPostits(this.userListPost.getLogin());
+        } catch (RemoteException ex) {
+            Logger.getLogger(ListaPostit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtExcluirActionPerformed
+   
     /**
      * @param args the command line arguments
      */

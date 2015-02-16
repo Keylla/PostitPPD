@@ -109,27 +109,7 @@ public class ManipulaJson {
         return postit;
     }
     
-    public void removePostit(int idPostit){
-        
-        jsonArray = new JSONArray();
-        parser = new JSONParser();
-        jsonObject = new JSONObject();       
-        File arquivo = new File(saidaPostit);
-
-        try {
-            jsonArray = (JSONArray) parser.parse(new FileReader(saidaPostit));
-            jsonArray.remove(idPostit);
-            FileWriter writeFile = new FileWriter(saidaPostit); 
-            writeFile.write(jsonArray.toString());
-            writeFile.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ManipulaJson.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(ManipulaJson.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    
+      
     public ArrayList<Postit> carregaPostitUser(String loginUser){
         int i = 0;
         String idUserPost = "";
@@ -159,6 +139,37 @@ public class ManipulaJson {
       return aPost;
     }
     
+      public void removePostit(int idPostit, String userConnect){
+        int i = -1;
+        int a =  0;
+        String idUserPost;
+        jsonArray = new JSONArray();
+        parser = new JSONParser();
+        jsonObject = new JSONObject();       
+        File arquivo = new File(saidaPostit);
+
+        try {
+            jsonArray = (JSONArray) parser.parse(new FileReader(saidaPostit));
+            while (i!=idPostit && a<= jsonArray.size()-1){
+             jsonObject = (JSONObject)jsonArray.get(a);  
+              map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
+              idUserPost = (String) map.get("loginUser");
+              if(userConnect.equals(idUserPost)){
+               i++;               
+                }
+              a++;
+            }  
+            jsonArray.remove(jsonObject);
+            FileWriter writeFile = new FileWriter(saidaPostit); 
+            writeFile.write(jsonArray.toString());
+            writeFile.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ManipulaJson.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ManipulaJson.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     } 
+   
     public User carregaUsuarioLogado (String loginUser){
         int i = 0;
         String login = "";

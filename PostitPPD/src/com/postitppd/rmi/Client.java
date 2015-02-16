@@ -62,9 +62,9 @@ public class Client {
        return stub.validaLogin(login, senha);     
     }
     
-    public void removePostit(int idPost){
+    public void removePostit(int idPost, String userLogado){
         try {
-            stub.removePostit(idPost);
+            stub.removePostit(idPost, userLogado);
         } catch (RemoteException ex) {
             System.out.println("Não foi possível remover o Postit selecionado!");
         }
