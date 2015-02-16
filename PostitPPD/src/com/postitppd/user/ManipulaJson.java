@@ -28,6 +28,8 @@ import org.json.simple.parser.ParseException;
 public class ManipulaJson {
     public String saidaPostit = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaPostit.json";
     public String saidaUser = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaUser.json";
+    
+   
     Gson gson = new Gson();
     Map<String, Object> map = new HashMap<String, Object>();
     JSONArray jsonArray;
