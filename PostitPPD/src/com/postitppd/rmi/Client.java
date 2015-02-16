@@ -49,8 +49,7 @@ public class Client {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
-    }
-    
+    }  
     public User getUser(String user) throws RemoteException{
         return stub.getUser(user);
     }
@@ -61,5 +60,13 @@ public class Client {
     
     public boolean validaLogin(String login, String senha) throws RemoteException{
        return stub.validaLogin(login, senha);     
+    }
+    
+    public void removePostit(int idPost){
+        try {
+            stub.removePostit(idPost);
+        } catch (RemoteException ex) {
+            System.out.println("Não foi possível remover o Postit selecionado!");
+        }
     }
 }

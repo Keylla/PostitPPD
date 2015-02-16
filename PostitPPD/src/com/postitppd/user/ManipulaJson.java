@@ -8,11 +8,13 @@ package com.postitppd.user;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.Gson;
+import com.postitppd.forms.guiUserCadastro;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -24,14 +26,19 @@ import org.json.simple.parser.ParseException;
  * @author Keylla
  */
 public class ManipulaJson {
+    public String saidaPostit = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaPostit.json";
+    public String saidaUser = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaUser.json";
+    Gson gson = new Gson();
+    Map<String, Object> map = new HashMap<String, Object>();
+    JSONArray jsonArray;
+    JSONParser parser;
+    JSONObject jsonObject;
     
     public void escreveJsonUser(int id, String nome, String login, String senha){
-        JSONArray jsonArray = new JSONArray();
-        JSONParser parser = new JSONParser();
-        JSONObject jsonObject = new JSONObject();       
-        String saidaUser = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaUser.json";
+         jsonArray = new JSONArray();
+         parser = new JSONParser();
+         jsonObject = new JSONObject();       
         File arquivo = new File(saidaUser);
-
         try {
             if (!arquivo.exists()){
                 arquivo.createNewFile();
@@ -56,12 +63,11 @@ public class ManipulaJson {
     }
     
     public void escreveJsonPostit(String loginUser, int idPost, String postText){
-        JSONArray jsonArray = new JSONArray();
-        JSONParser parser = new JSONParser();
-        JSONObject jsonObject = new JSONObject();       
-        String saidaPostit = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaPostit.json";
+        jsonArray = new JSONArray();
+        parser = new JSONParser();
+        jsonObject = new JSONObject();       
+        
         File arquivo = new File(saidaPostit);
-  
         try {
             if (!arquivo.exists()){
                 arquivo.createNewFile();
@@ -85,10 +91,7 @@ public class ManipulaJson {
     }
     
     public User carregaUser(String jsonUser){
-        Gson gson = new Gson();
-        Map<String, Object> map = new HashMap<String, Object>();
         map = (Map<String, Object>)gson.fromJson(jsonUser, map.getClass());
-
         String id = (String) map.get("id");
         String nome = (String) map.get("nome");
         String login = (String) map.get("login");
@@ -98,15 +101,87 @@ public class ManipulaJson {
     }
     
     public Postit carregaPostit(String jsonPostit){
-        Gson gson = new Gson();
-        Map<String, Object> map = new HashMap<String, Object>();
         map = (Map<String, Object>)gson.fromJson(jsonPostit, map.getClass());
-
         String loginUser = (String) map.get("loginUser");
         String idPost = (String) map.get("idPost");
         String postText = (String) map.get("postText");
         Postit postit = new Postit(loginUser,parseInt(idPost),postText);
         return postit;
+    }
+    
+    public void removePostit(int idPostit){
+        
+        jsonArray = new JSONArray();
+        parser = new JSONParser();
+        jsonObject = new JSONObject();       
+        File arquivo = new File(saidaPostit);
+
+        try {
+            jsonArray = (JSONArray) parser.parse(new FileReader(saidaPostit));
+            jsonArray.remove(idPostit);
+            FileWriter writeFile = new FileWriter(saidaPostit); 
+            writeFile.write(jsonArray.toString());
+            writeFile.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ManipulaJson.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ManipulaJson.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public ArrayList<Postit> carregaPostitUser(String loginUser){
+        int i = 0;
+        String idUserPost = "";
+        ArrayList<Postit> aPost = new ArrayList<Postit>();
+        String userConnect = loginUser;
+        
+        String saidaUserPostit = saidaPostit;
+        jsonObject = null;
+        jsonArray = new JSONArray();
+        parser = new JSONParser();
+        try {
+            jsonArray = (JSONArray) parser.parse(new FileReader(saidaUserPostit));
+            while (i<= jsonArray.size()-1){     
+              jsonObject = (JSONObject)jsonArray.get(i);
+              map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
+              idUserPost = (String) map.get("loginUser");
+              if(userConnect.equals(idUserPost)){
+               aPost.add(carregaPostit(jsonObject.toJSONString()));
+              }
+              i++;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      return aPost;
+    }
+    
+    public User carregaUsuarioLogado (String loginUser){
+        int i = 0;
+        String login = "";
+        User user = new User();
+        String userConnect = loginUser;
+        jsonObject = null;
+        jsonArray = new JSONArray();
+        parser = new JSONParser();
+        try {
+            jsonArray = (JSONArray) parser.parse(new FileReader(saidaUser));
+            while (!userConnect.equals(login) && i<= jsonArray.size()-1){     
+              jsonObject = (JSONObject)jsonArray.get(i);
+              map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
+              login = (String) map.get("login");
+              i++;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        user =  carregaUser(jsonObject.toJSONString());
+        return user;
     }
  
 }
