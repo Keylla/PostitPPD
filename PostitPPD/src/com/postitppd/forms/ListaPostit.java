@@ -10,11 +10,12 @@ import com.postitppd.user.Postit;
 import com.postitppd.user.User;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -91,17 +92,25 @@ public class ListaPostit extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupEditar = new javax.swing.JPopupMenu();
         jlbBemVindo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListPostits = new javax.swing.JList();
         jbtNovo = new javax.swing.JButton();
         jbtExcluir = new javax.swing.JButton();
 
+        jPopupEditar.setBorder(null);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jlbBemVindo.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jlbBemVindo.setText("Bem Vindo!");
 
+        jListPostits.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListPostitsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jListPostits);
 
         jbtNovo.setText("Novo");
@@ -125,17 +134,17 @@ public class ListaPostit extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlbBemVindo)
-                        .addGap(0, 275, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jbtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +184,19 @@ public class ListaPostit extends javax.swing.JFrame {
             Logger.getLogger(ListaPostit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtExcluirActionPerformed
+
+    private void jListPostitsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPostitsMouseClicked
+        // TODO add your handling code here:
+        if (evt.getButton() == MouseEvent.BUTTON3)
+        {
+            final int index = jListPostits.locationToIndex(evt.getPoint()); 
+            this.jListPostits.setSelectedIndex(index);
+            jPopupEditar.show(jListPostits, evt.getX(), evt.getY());
+            edit.setText("Editar");
+            jPopupEditar.add(edit);
+            
+        }
+    }//GEN-LAST:event_jListPostitsMouseClicked
    
     /**
      * @param args the command line arguments
@@ -214,9 +236,11 @@ public class ListaPostit extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList jListPostits;
+    private javax.swing.JPopupMenu jPopupEditar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtExcluir;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JLabel jlbBemVindo;
     // End of variables declaration//GEN-END:variables
+    private JButton edit = new JButton();
 }
