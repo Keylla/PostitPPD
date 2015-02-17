@@ -69,4 +69,12 @@ public class Client {
             System.out.println("Não foi possível remover o Postit selecionado!");
         }
     }
+    
+    public void editPostit(int idPostit, String userConnect, String novoText){
+        try {
+            stub.editPostit(idPostit, userConnect, novoText);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

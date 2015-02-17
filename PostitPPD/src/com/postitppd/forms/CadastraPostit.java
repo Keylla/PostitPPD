@@ -19,6 +19,7 @@ public class CadastraPostit extends javax.swing.JFrame {
     public Client clientCadPost;
     public User userCadPost;
     public ListaPostit listCadPost;
+    public int tipoEvento;
     /**
      * Creates new form CadastraPosit
      */
@@ -88,7 +89,14 @@ public class CadastraPostit extends javax.swing.JFrame {
 
     private void jbtPostSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPostSalvarActionPerformed
         // TODO add your handling code here:
+      
+      if(tipoEvento == 0){
       clientCadPost.cadastraPostit(userCadPost.getLogin(), this.jtxtPostText.getText());
+      }
+      else {
+       int idEdit = listCadPost.idEdit;    
+       clientCadPost.editPostit(idEdit, userCadPost.getLogin(),this.jtxtPostText.getText() );
+      }
         try {
             listCadPost.carregaPostits(userCadPost.getLogin());
         } catch (RemoteException ex) {

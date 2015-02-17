@@ -29,12 +29,19 @@ public class ListaPostit extends javax.swing.JFrame {
     public User userListPost ;
     private ArrayList<JFrame> listJframe;
     Object[] ids;
+    CadastraPostit cadp;
+    int idEdit;
 
     /**
      * Creates new form CadastraPostit
      */
     public ListaPostit() {
         initComponents();
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEditarActionPerformed(evt);
+            }
+        });
         listJframe = new ArrayList<>();
     }
 
@@ -165,10 +172,11 @@ public class ListaPostit extends javax.swing.JFrame {
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         // TODO add your handling code here:
-        CadastraPostit cadp = new CadastraPostit();
+        cadp = new CadastraPostit();
         cadp.clientCadPost = this.clientListPost;
         cadp.userCadPost = this.userListPost;
         cadp.listCadPost = this;
+        cadp.tipoEvento = 0;
         cadp.setLocationRelativeTo(null);
         cadp.setVisible(true);
     }//GEN-LAST:event_jbtNovoActionPerformed
@@ -195,9 +203,26 @@ public class ListaPostit extends javax.swing.JFrame {
             edit.setText("Editar");
             jPopupEditar.add(edit);
             
+            
         }
     }//GEN-LAST:event_jListPostitsMouseClicked
-   
+        private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+          int i = jListPostits.getSelectedIndex();  
+          idEdit = (int) ids[i];
+          cadp = new CadastraPostit();
+          cadp.clientCadPost = this.clientListPost;
+          cadp.userCadPost = this.userListPost;
+          cadp.listCadPost = this;
+          cadp.tipoEvento = 1;
+          cadp.setLocationRelativeTo(null);
+          cadp.setVisible(true);
+          
+        try {
+            this.carregaPostits(this.userListPost.getLogin());
+        } catch (RemoteException ex) {
+            Logger.getLogger(ListaPostit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
     /**
      * @param args the command line arguments
      */
