@@ -24,8 +24,8 @@ import javax.swing.KeyStroke;
  * @author Keylla
  */
 public class guiUserLogin extends javax.swing.JDialog {
-   private Server rmiServer;
-   private RecordServer regitryServer;
+   private Server rmiServer = null;
+   private RecordServer regitryServer = null;
    private Client cliente = null;
    private User user;
    
@@ -40,6 +40,8 @@ public class guiUserLogin extends javax.swing.JDialog {
 
     /**
      * Creates new form guiUserLogin
+     * @param parent
+     * @param modal
      */
     public guiUserLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -62,6 +64,26 @@ public class guiUserLogin extends javax.swing.JDialog {
             }
         });
     }
+
+    guiUserLogin() {
+        this.setLocationRelativeTo(null);
+        initComponents();
+        this.okButton.setEnabled(false);
+        this.jTextUser.setEnabled(false);
+        this.jPassUser.setEnabled(false);
+        this.jLinkCadastro.setEnabled(false);
+       
+
+        // Close the dialog when Esc is pressed
+        String cancelName = "cancel";
+        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
+        ActionMap actionMap = getRootPane().getActionMap();
+        actionMap.put(cancelName, new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                doClose(RET_CANCEL);
+            }
+        });    }
 
     /**
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL

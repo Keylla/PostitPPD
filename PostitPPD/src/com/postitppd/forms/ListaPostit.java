@@ -28,10 +28,11 @@ import javax.swing.JOptionPane;
 public class ListaPostit extends javax.swing.JFrame {
     public Client clientListPost;
     public User userListPost ;
-    private ArrayList<JFrame> listJframe;
-    Object[] ids;
-    CadastraPostit cadp;
-    int idEdit;
+    protected ArrayList<JFrame> listJframe;
+    protected Object[] ids;
+    protected CadastraPostit cadp;
+    protected int idEdit;
+    
 
     /**
      * Creates new form CadastraPostit
@@ -106,6 +107,7 @@ public class ListaPostit extends javax.swing.JFrame {
         jListPostits = new javax.swing.JList();
         jbtNovo = new javax.swing.JButton();
         jbtExcluir = new javax.swing.JButton();
+        jbtLogout = new javax.swing.JButton();
 
         jPopupEditar.setBorder(null);
 
@@ -135,6 +137,13 @@ public class ListaPostit extends javax.swing.JFrame {
             }
         });
 
+        jbtLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/postitppd/imagens/logout-icon.png"))); // NOI18N
+        jbtLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,28 +153,33 @@ public class ListaPostit extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlbBemVindo)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)))
+                        .addGap(57, 57, 57))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlbBemVindo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jlbBemVindo)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlbBemVindo)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jbtLogout, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtNovo)
                     .addComponent(jbtExcluir))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
 
         pack();
@@ -207,6 +221,23 @@ public class ListaPostit extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jListPostitsMouseClicked
+
+    private void jbtLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogoutActionPerformed
+        // TODO add your handling code here:
+        guiUserLogin guiUser = new guiUserLogin();
+        clientListPost = null;
+        userListPost = null ;
+         for( JFrame frame : listJframe){  
+              frame.setFocusable(true);
+              frame.dispose();
+            };
+        listJframe.removeAll(listJframe);
+        ids = null;
+        cadp = null;
+        this.dispose();
+        guiUser.setVisible(true);
+       
+    }//GEN-LAST:event_jbtLogoutActionPerformed
         private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {                                           
           int i = jListPostits.getSelectedIndex();  
           idEdit = (int) ids[i];
@@ -267,6 +298,7 @@ public class ListaPostit extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupEditar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtExcluir;
+    private javax.swing.JButton jbtLogout;
     private javax.swing.JButton jbtNovo;
     private javax.swing.JLabel jlbBemVindo;
     // End of variables declaration//GEN-END:variables
