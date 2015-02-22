@@ -23,7 +23,7 @@ import javax.swing.KeyStroke;
  *
  * @author Keylla
  */
-public class guiUserLogin extends javax.swing.JDialog {
+public class guiUserLogin extends javax.swing.JFrame {
    private Server rmiServer = null;
    private RecordServer regitryServer = null;
    private Client cliente = null;
@@ -43,8 +43,8 @@ public class guiUserLogin extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public guiUserLogin(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public guiUserLogin() {
+        
         this.setLocationRelativeTo(null);
         initComponents();
         this.okButton.setEnabled(false);
@@ -65,26 +65,7 @@ public class guiUserLogin extends javax.swing.JDialog {
         });
     }
 
-    guiUserLogin() {
-        this.setLocationRelativeTo(null);
-        initComponents();
-        this.okButton.setEnabled(false);
-        this.jTextUser.setEnabled(false);
-        this.jPassUser.setEnabled(false);
-        this.jLinkCadastro.setEnabled(false);
-       
-
-        // Close the dialog when Esc is pressed
-        String cancelName = "cancel";
-        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
-        ActionMap actionMap = getRootPane().getActionMap();
-        actionMap.put(cancelName, new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                doClose(RET_CANCEL);
-            }
-        });    }
-
+  
     /**
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
@@ -129,6 +110,7 @@ public class guiUserLogin extends javax.swing.JDialog {
         jlbIpServer = new javax.swing.JLabel();
         jbStartServer = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -337,7 +319,7 @@ public class guiUserLogin extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                guiUserLogin dialog = new guiUserLogin(new javax.swing.JFrame(), true);
+                guiUserLogin dialog = new guiUserLogin();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

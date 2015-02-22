@@ -32,6 +32,7 @@ public class ListaPostit extends javax.swing.JFrame {
     protected Object[] ids;
     protected CadastraPostit cadp;
     protected int idEdit;
+    protected Object[] es;
     
 
     /**
@@ -55,7 +56,37 @@ public class ListaPostit extends javax.swing.JFrame {
         return jListPostits;
     }
     
-    
+    public void carregaNovoPostit(String loginuser) throws RemoteException{
+        Toolkit toolkit = Toolkit.getDefaultToolkit(); 
+        Dimension screenSize = toolkit.getScreenSize(); 
+        int x = (screenSize.width/2)+320 ; 
+        int y = (screenSize.height/2)-350; 
+        ArrayList<Postit> postits = new ArrayList<>();
+        postits = clientListPost.getUserPostit(userListPost.getLogin());
+        Object[]esOut = es;
+        Object[]idsOut = ids;
+        es = new Object[postits.size()];
+        ids = new Object[postits.size()];
+        for(int a = 0; a<esOut.length;a++){
+            es[a]=esOut[a];
+            ids[a]=idsOut[a];
+        }
+        FormPostit formp;
+        int i = postits.size()-1;
+        if(postits.get(i).getPostText().length() >20){
+                es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
+            }
+            else { 
+            ids[i] = postits.get(i).getIdPost();    
+            es[i] = postits.get(i).getPostText();
+            }
+            formp = new FormPostit();
+            formp.getJtxtpostit().setText(postits.get(i).getPostText());
+            listJframe.add(formp);   
+            formp.setLocation(x, y);
+            formp.setVisible(true);
+           this.jListPostits.setListData(es);    
+    }
     
     public void carregaPostits(String loginuser) throws RemoteException{
         Toolkit toolkit = Toolkit.getDefaultToolkit(); 
@@ -64,8 +95,8 @@ public class ListaPostit extends javax.swing.JFrame {
         int y = (screenSize.height/2)-350; 
         ArrayList<Postit> postits = new ArrayList<>();
         postits = clientListPost.getUserPostit(userListPost.getLogin());
-        Object[] es = new Object[postits.size()];
-        ids = new Object[postits.size()];
+        es = new Object[postits.size()];
+        ids = new Object[postits.size()]; 
         FormPostit formp;
          for( JFrame frame : listJframe){  
               frame.setFocusable(true);

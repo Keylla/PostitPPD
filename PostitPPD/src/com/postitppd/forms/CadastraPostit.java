@@ -47,7 +47,7 @@ public class CadastraPostit extends javax.swing.JFrame {
         jbtPostSalvar = new javax.swing.JButton();
         jbtPostCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jtxtPostText.setColumns(20);
         jtxtPostText.setLineWrap(true);
@@ -109,7 +109,8 @@ public class CadastraPostit extends javax.swing.JFrame {
        clientCadPost.editPostit(idEdit, userCadPost.getLogin(),this.jtxtPostText.getText() );
       }
         try {
-            listCadPost.carregaPostits(userCadPost.getLogin());
+            listCadPost.carregaNovoPostit(userCadPost.getLogin());
+           // listCadPost.carregaPostits(userCadPost.getLogin());
         } catch (RemoteException ex) {
             Logger.getLogger(CadastraPostit.class.getName()).log(Level.SEVERE, null, ex);
         }
