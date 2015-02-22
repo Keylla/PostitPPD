@@ -55,7 +55,32 @@ public class ListaPostit extends javax.swing.JFrame {
     public JList getjListPostits() {
         return jListPostits;
     }
-    
+    public void carregaRemovePostit(String loginuser) throws RemoteException{
+        Toolkit toolkit = Toolkit.getDefaultToolkit(); 
+        Dimension screenSize = toolkit.getScreenSize(); 
+        int x = (screenSize.width/2)+320 ; 
+        int y = (screenSize.height/2)-350; 
+        ArrayList<Postit> postits = new ArrayList<>();
+        postits = clientListPost.getUserPostit(userListPost.getLogin());  
+        es = new Object[postits.size()];
+        ids = new Object[postits.size()];
+        for(int a = 0; a<postits.size();a++){
+            if(postits.get(a).getPostText().length() >20){
+                es[a] = postits.get(a).getPostText().substring(1, 16)+" ...";
+            }
+            else { 
+            ids[a] = postits.get(a).getIdPost();    
+            es[a] = postits.get(a).getPostText();
+            }
+        }
+         for( int i = 0; i<jListPostits.getSelectedIndices().length; i++){
+            int idRemov = jListPostits.getSelectedIndices()[i]; 
+            JFrame jRem = listJframe.get(idRemov);
+            jRem.dispose();
+            listJframe.remove(idRemov);   
+         }
+           this.jListPostits.setListData(es);    
+    }
     public void carregaNovoPostit(String loginuser) throws RemoteException{
         Toolkit toolkit = Toolkit.getDefaultToolkit(); 
         Dimension screenSize = toolkit.getScreenSize(); 
@@ -74,6 +99,7 @@ public class ListaPostit extends javax.swing.JFrame {
         FormPostit formp;
         int i = postits.size()-1;
         if(postits.get(i).getPostText().length() >20){
+                ids[i] = postits.get(i).getIdPost(); 
                 es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
             }
             else { 
@@ -233,7 +259,7 @@ public class ListaPostit extends javax.swing.JFrame {
           this.clientListPost.removePostit(idRemov, this.userListPost.getLogin());
         }  
         try {
-            this.carregaPostits(this.userListPost.getLogin());
+            this.carregaRemovePostit(this.userListPost.getLogin());
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível estabeler conexão com o servidor!"); 
         }
