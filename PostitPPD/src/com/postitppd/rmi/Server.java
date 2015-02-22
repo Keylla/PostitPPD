@@ -25,7 +25,6 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
     
     public Server() throws RemoteException{
       super();
-      System.out.println("Servidor criado!");
    }
 
     @Override

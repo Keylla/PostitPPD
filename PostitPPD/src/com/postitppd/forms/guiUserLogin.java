@@ -12,8 +12,6 @@ import com.postitppd.user.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -80,7 +78,7 @@ public class guiUserLogin extends javax.swing.JDialog {
        } catch (RemoteException ex) {
            cliente = null;
            JOptionPane.showMessageDialog(null, "Não foi possível estabeler conexão com o servidor informado. "
-                                        + "Por favor verificar IP do servidor!");
+                                       +"\n" + "Por favor verificar IP do servidor!");
            this.jbStartServer.setEnabled(true);
        }
     }
@@ -226,7 +224,7 @@ public class guiUserLogin extends javax.swing.JDialog {
                lpost.userListPost =  getClient().getUser(this.jTextUser.getText());
                lpost.carregaPostits(lpost.userListPost.getLogin());
            } catch (RemoteException ex) {
-               System.out.println("Não foi possível iniciar usuário na guiUserLogin");
+               System.out.println("Não foi possível iniciar usuário na guiUserLogin.");
            }
             doClose(RET_CANCEL);  
             lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName()); 
@@ -262,10 +260,11 @@ public class guiUserLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_jLinkCadastroMouseClicked
 
     private void jbStartServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbStartServerActionPerformed
-        if (this.jtxtIpServer.getText().isEmpty())
+       if (this.jtxtIpServer.getText().isEmpty())
              JOptionPane.showMessageDialog(null, "Deve ser informado IP do servidor!"); 
         else{
             try {
+               
                rmiServer = new Server();
                regitryServer = new RecordServer();
                regitryServer.connectServer(rmiServer);

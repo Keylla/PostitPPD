@@ -23,20 +23,16 @@ public class RecordServer {
     private Registry registryServer = null;
     
     public void connectServer(Server server) {
-      if (registryServer == null) {
-   
-        try { 
-            try {
+      if (registryServer == null) {   
+            try {  
                 registryServer = LocateRegistry.createRegistry(5000);
-                registryServer.bind("ServidorRMI", server);
-            } catch (AlreadyBoundException ex) {
-                Logger.getLogger(RecordServer.class.getName()).log(Level.SEVERE, null, ex);
+                registryServer.rebind("ServidorRMI", server);              
             } catch (AccessException ex) {
-                Logger.getLogger(RecordServer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (RemoteException ex) {
-            Logger.getLogger(RecordServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                System.out.println("Servidor já registrado!");
+            } catch (RemoteException ex) {
+               System.out.println("Servidor já registrado!");
+          }
+       
         }  
     }
 }    
