@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -189,7 +190,7 @@ public class ListaPostit extends javax.swing.JFrame {
         try {
             this.carregaPostits(this.userListPost.getLogin());
         } catch (RemoteException ex) {
-            Logger.getLogger(ListaPostit.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Não foi possível estabeler conexão com o servidor!"); 
         }
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
@@ -209,11 +210,13 @@ public class ListaPostit extends javax.swing.JFrame {
         private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {                                           
           int i = jListPostits.getSelectedIndex();  
           idEdit = (int) ids[i];
+          FormPostit fpost = (FormPostit) listJframe.get(i);
           cadp = new CadastraPostit();
           cadp.clientCadPost = this.clientListPost;
           cadp.userCadPost = this.userListPost;
           cadp.listCadPost = this;
           cadp.tipoEvento = 1;
+          cadp.getJtxtPostText().setText(fpost.getJtxtpostit().getText());
           cadp.setLocationRelativeTo(null);
           cadp.setVisible(true);
           

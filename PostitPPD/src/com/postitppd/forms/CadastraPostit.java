@@ -10,6 +10,7 @@ import com.postitppd.user.User;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -27,6 +28,11 @@ public class CadastraPostit extends javax.swing.JFrame {
         initComponents();
     }
 
+    public JTextArea getJtxtPostText() {
+        return jtxtPostText;
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +62,11 @@ public class CadastraPostit extends javax.swing.JFrame {
         });
 
         jbtPostCancel.setText("Cancelar");
+        jbtPostCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPostCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,6 +115,11 @@ public class CadastraPostit extends javax.swing.JFrame {
         }
       this.dispose();
     }//GEN-LAST:event_jbtPostSalvarActionPerformed
+
+    private void jbtPostCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPostCancelActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jbtPostCancelActionPerformed
 
     /**
      * @param args the command line arguments

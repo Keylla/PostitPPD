@@ -28,7 +28,7 @@ import javax.swing.KeyStroke;
 public class guiUserLogin extends javax.swing.JDialog {
    private Server rmiServer;
    private RecordServer regitryServer;
-   private Client cliente;
+   private Client cliente = null;
    private User user;
    
     /**
@@ -78,7 +78,10 @@ public class guiUserLogin extends javax.swing.JDialog {
        try {
            cliente.connectClient(ip);
        } catch (RemoteException ex) {
-           Logger.getLogger(guiUserLogin.class.getName()).log(Level.SEVERE, null, ex);
+           cliente = null;
+           JOptionPane.showMessageDialog(null, "Não foi possível estabeler conexão com o servidor informado. "
+                                        + "Por favor verificar IP do servidor!");
+           this.jbStartServer.setEnabled(true);
        }
     }
     
@@ -210,11 +213,12 @@ public class guiUserLogin extends javax.swing.JDialog {
 
         setClient();
         boolean valida = false;
-       try {
-           valida = this.getClient().validaLogin(this.jTextUser.getText(), this.jPassUser.getText());
-       } catch (RemoteException ex) {
-           System.out.println("Não foi possível validar entrada!");
-       }
+       if (getClient()!=null) { 
+        try {
+            valida = this.getClient().validaLogin(this.jTextUser.getText(), this.jPassUser.getText());
+        } catch (RemoteException ex) {
+            System.out.println("Não foi possível validar entrada!");
+        }
         if(valida) {
             ListaPostit lpost = new ListaPostit();
             lpost.clientListPost = getClient();
@@ -230,7 +234,8 @@ public class guiUserLogin extends javax.swing.JDialog {
             lpost.setVisible(true);
        }
        else
-        JOptionPane.showMessageDialog(null, "Login ou Senha inválidos!");   
+        JOptionPane.showMessageDialog(null, "Login ou Senha inválidos!");  
+       }     
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -265,7 +270,7 @@ public class guiUserLogin extends javax.swing.JDialog {
                regitryServer = new RecordServer();
                regitryServer.connectServer(rmiServer);
            } catch (RemoteException ex) {
-               Logger.getLogger(guiUserLogin.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(null, "Não foi possível estabeler conexão com o servidor informado!"); 
            }
             this.jLinkCadastro.setEnabled(true);
             this.okButton.setEnabled(true);
