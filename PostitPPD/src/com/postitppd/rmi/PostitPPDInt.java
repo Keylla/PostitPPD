@@ -18,5 +18,6 @@ public interface PostitPPDInt extends Remote{
     public boolean validaLogin(String login, String senha) throws RemoteException;
     public void removePostit (int idPostit, String userLogado)throws RemoteException;
     public void editPostit(int idPostit, String userConnect, String novoText) throws RemoteException;
+    public boolean verificaLoginExists (String loginUser) throws RemoteException;
 
 }

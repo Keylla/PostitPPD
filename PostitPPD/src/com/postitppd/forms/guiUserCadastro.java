@@ -6,10 +6,9 @@
 package com.postitppd.forms;
 
 import com.postitppd.rmi.Client;
-import com.postitppd.user.User;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -127,18 +126,24 @@ public class guiUserCadastro extends javax.swing.JFrame {
         String nome = jtxtNome.getText();
         String login = jtxtUser.getText();
         String senha = jpfSenha.getText();
-        clientUser.cadastraUser(nome, login, senha);
         ListaPostit lpost = new ListaPostit();
-        lpost.clientListPost = clientUser;
        try {
+           if(clientUser.verificaLoginExists(login)){
+         JOptionPane.showMessageDialog(null, "Login já cadastrado, por favor escolher outro login!");     
+        }
+           else{  
+           clientUser.cadastraUser(nome, login, senha);
+           lpost.clientListPost = clientUser;
            lpost.userListPost =  clientUser.getUser(this.jtxtUser.getText());
+           lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName());
+           this.dispose();
+           lpost.setLocationRelativeTo(null);
+           lpost.setVisible(true);
+           }
        } catch (RemoteException ex) {
            System.out.println("Não foi possível iniciar usuário na guiUserCadastro");
        }
-        lpost.getJlbBemVindo().setText("Bem Vindo "+lpost.userListPost.getName());
-        this.dispose();
-        lpost.setLocationRelativeTo(null);
-        lpost.setVisible(true);
+        
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     /**

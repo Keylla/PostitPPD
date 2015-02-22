@@ -26,9 +26,10 @@ import org.json.simple.parser.ParseException;
  * @author Keylla
  */
 public class ManipulaJson {
-    public String saidaPostit = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaPostit.json";
-    public String saidaUser = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaUser.json";
-    
+    //public String saidaPostit = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaPostit.json";
+    //public String saidaUser = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaUser.json";
+    public String saidaUser = "saidaUser.json";
+    public String saidaPostit = "saidaPostit.json";
    
     Gson gson = new Gson();
     Map<String, Object> map = new HashMap<String, Object>();
@@ -67,8 +68,7 @@ public class ManipulaJson {
     public void escreveJsonPostit(String loginUser, int idPost, String postText){
         jsonArray = new JSONArray();
         parser = new JSONParser();
-        jsonObject = new JSONObject();       
-        
+        jsonObject = new JSONObject();          
         File arquivo = new File(saidaPostit);
         try {
             if (!arquivo.exists()){
@@ -103,6 +103,7 @@ public class ManipulaJson {
     }
     
     public Postit carregaPostit(String jsonPostit){
+         
         map = (Map<String, Object>)gson.fromJson(jsonPostit, map.getClass());
         String loginUser = (String) map.get("loginUser");
         String idPost = (String) map.get("idPost");
@@ -117,13 +118,14 @@ public class ManipulaJson {
         String idUserPost = "";
         ArrayList<Postit> aPost = new ArrayList<Postit>();
         String userConnect = loginUser;
-        
-        String saidaUserPostit = saidaPostit;
         jsonObject = null;
         jsonArray = new JSONArray();
         parser = new JSONParser();
+        File arquivo = new File(saidaPostit);
+        
+        if(arquivo.exists()){
         try {
-            jsonArray = (JSONArray) parser.parse(new FileReader(saidaUserPostit));
+            jsonArray = (JSONArray) parser.parse(new FileReader(saidaPostit));
             while (i<= jsonArray.size()-1){     
               jsonObject = (JSONObject)jsonArray.get(i);
               map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
@@ -138,6 +140,7 @@ public class ManipulaJson {
         } catch (ParseException ex) {
             Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
+      }  
       return aPost;
     }
     
@@ -218,23 +221,26 @@ public class ManipulaJson {
         jsonObject = null;
         jsonArray = new JSONArray();
         parser = new JSONParser();
-        try {
-            jsonArray = (JSONArray) parser.parse(new FileReader(saidaUser));
-            while ( i<= jsonArray.size()-1){     
-              jsonObject = (JSONObject)jsonArray.get(i);
-              map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
-              id = (String) map.get("id");
-              idUser = Integer.valueOf(id);
-              if(idUser>maxId){
-                  maxId=idUser;
-              }
-              i++;
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        File arquivo = new File(saidaUser);
+        if(arquivo.exists()){
+            try {
+                jsonArray = (JSONArray) parser.parse(new FileReader(saidaUser));
+                while ( i<= jsonArray.size()-1){     
+                  jsonObject = (JSONObject)jsonArray.get(i);
+                  map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
+                  id = (String) map.get("id");
+                  idUser = Integer.valueOf(id);
+                  if(idUser>maxId){
+                      maxId=idUser;
+                  }
+                  i++;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
         maxId = maxId+1;
         return maxId;
     }
@@ -275,5 +281,32 @@ public class ManipulaJson {
             Logger.getLogger(ManipulaJson.class.getName()).log(Level.SEVERE, null, ex);
         }
      }
+     
+     public boolean verificaLoginExists (String loginUser){
+        boolean existsLogin = false; 
+        int i = 0;
+        String login = "";
+        String userConnect = loginUser;
+        jsonObject = null;
+        jsonArray = new JSONArray();
+        parser = new JSONParser();
+        try {
+            jsonArray = (JSONArray) parser.parse(new FileReader(saidaUser));
+            while (!userConnect.equals(login) && i<= jsonArray.size()-1){     
+              jsonObject = (JSONObject)jsonArray.get(i);
+              map = (Map<String, Object>)gson.fromJson(jsonObject.toJSONString(), map.getClass());
+              login = (String) map.get("login");
+              if(userConnect.equals(login)){
+                  existsLogin = true;
+              }
+              i++;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(guiUserCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+      return existsLogin;  
+    }
  
 }

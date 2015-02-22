@@ -72,4 +72,9 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
         mj.editPostit(idPostit, userConnect, novoText);
     }
     
+    @Override
+    public boolean verificaLoginExists (String loginUser){
+        return mj.verificaLoginExists(loginUser);
+    }
+    
 }

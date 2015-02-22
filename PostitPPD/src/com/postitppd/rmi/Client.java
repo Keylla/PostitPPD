@@ -77,4 +77,8 @@ public class Client {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public boolean verificaLoginExists (String loginUser) throws RemoteException{
+        return stub.verificaLoginExists(loginUser);
+    }
 }
