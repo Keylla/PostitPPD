@@ -101,15 +101,18 @@ public class CadastraPostit extends javax.swing.JFrame {
     private void jbtPostSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPostSalvarActionPerformed
         // TODO add your handling code here:
       
-      if(tipoEvento == 0){
-      clientCadPost.cadastraPostit(userCadPost.getLogin(), this.jtxtPostText.getText());
-      }
-      else {
-       int idEdit = listCadPost.idEdit;    
-       clientCadPost.editPostit(idEdit, userCadPost.getLogin(),this.jtxtPostText.getText() );
-      }
+      
         try {
-            listCadPost.carregaNovoPostit(userCadPost.getLogin());
+            if(tipoEvento == 0){
+                clientCadPost.cadastraPostit(userCadPost.getLogin(), this.jtxtPostText.getText());
+                listCadPost.carregaNovoPostit(userCadPost.getLogin());
+                }
+                else {
+                 int idEdit = listCadPost.idEdit;    
+                 clientCadPost.editPostit(idEdit, userCadPost.getLogin(),this.jtxtPostText.getText() );
+                 listCadPost.carregaEditPostit(userCadPost.getLogin());
+                }
+            
            // listCadPost.carregaPostits(userCadPost.getLogin());
         } catch (RemoteException ex) {
             Logger.getLogger(CadastraPostit.class.getName()).log(Level.SEVERE, null, ex);

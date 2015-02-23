@@ -55,31 +55,62 @@ public class ListaPostit extends javax.swing.JFrame {
     public JList getjListPostits() {
         return jListPostits;
     }
-    public void carregaRemovePostit(String loginuser) throws RemoteException{
-        Toolkit toolkit = Toolkit.getDefaultToolkit(); 
-        Dimension screenSize = toolkit.getScreenSize(); 
-        int x = (screenSize.width/2)+320 ; 
-        int y = (screenSize.height/2)-350; 
+     public void carregaEditPostit(String loginuser) throws RemoteException{
         ArrayList<Postit> postits = new ArrayList<>();
         postits = clientListPost.getUserPostit(userListPost.getLogin());  
         es = new Object[postits.size()];
         ids = new Object[postits.size()];
+        
         for(int a = 0; a<postits.size();a++){
             if(postits.get(a).getPostText().length() >20){
+                ids[a] = postits.get(a).getIdPost();
                 es[a] = postits.get(a).getPostText().substring(1, 16)+" ...";
             }
             else { 
             ids[a] = postits.get(a).getIdPost();    
             es[a] = postits.get(a).getPostText();
             }
-        }
+        }   
+        int idRemov = jListPostits.getSelectedIndex(); 
+        String novoText = postits.get(idRemov).getPostText();
+        FormPostit jRem = (FormPostit) listJframe.get(idRemov);
+        jRem.getJtxtpostit().setText(novoText);
+        this.jListPostits.setListData(es);    
+    }
+     
+    public void carregaRemovePostit(String loginuser) throws RemoteException{
+        ArrayList<Postit> postits = new ArrayList<>();
+        postits = clientListPost.getUserPostit(userListPost.getLogin());  
+        es = new Object[postits.size()];
+        ids = new Object[postits.size()];
+        ArrayList<JFrame> listJframeNovo = new ArrayList<>();
+        
          for( int i = 0; i<jListPostits.getSelectedIndices().length; i++){
+            int idNovo = 0; 
             int idRemov = jListPostits.getSelectedIndices()[i]; 
             JFrame jRem = listJframe.get(idRemov);
             jRem.dispose();
-            listJframe.remove(idRemov);   
-         }
-           this.jListPostits.setListData(es);    
+           for( JFrame frame : listJframe){     
+               if(idNovo!= idRemov){
+                listJframeNovo.add(listJframe.get(idNovo));
+               }
+               idNovo++;
+           }
+         } 
+         listJframe.removeAll(listJframe);
+         listJframe= listJframeNovo;
+        
+        for(int a = 0; a<postits.size();a++){
+            if(postits.get(a).getPostText().length() >20){
+                ids[a] = postits.get(a).getIdPost(); 
+                es[a] = postits.get(a).getPostText().substring(1, 16)+" ...";
+            }
+            else { 
+            ids[a] = postits.get(a).getIdPost();    
+            es[a] = postits.get(a).getPostText();
+            }
+        } 
+        this.jListPostits.setListData(es);    
     }
     public void carregaNovoPostit(String loginuser) throws RemoteException{
         Toolkit toolkit = Toolkit.getDefaultToolkit(); 
@@ -99,19 +130,19 @@ public class ListaPostit extends javax.swing.JFrame {
         FormPostit formp;
         int i = postits.size()-1;
         if(postits.get(i).getPostText().length() >20){
-                ids[i] = postits.get(i).getIdPost(); 
-                es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
+            ids[i] = postits.get(i).getIdPost(); 
+            es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
             }
-            else { 
+         else { 
             ids[i] = postits.get(i).getIdPost();    
             es[i] = postits.get(i).getPostText();
-            }
-            formp = new FormPostit();
-            formp.getJtxtpostit().setText(postits.get(i).getPostText());
-            listJframe.add(formp);   
-            formp.setLocation(x, y);
-            formp.setVisible(true);
-           this.jListPostits.setListData(es);    
+        }
+        formp = new FormPostit();
+        formp.getJtxtpostit().setText(postits.get(i).getPostText());
+        listJframe.add(formp);   
+        formp.setLocation(x, y);
+        formp.setVisible(true);
+        this.jListPostits.setListData(es);    
     }
     
     public void carregaPostits(String loginuser) throws RemoteException{
@@ -131,6 +162,7 @@ public class ListaPostit extends javax.swing.JFrame {
         listJframe.removeAll(listJframe);
         for (int i = 0; i <= postits.size()-1; i++){
             if(postits.get(i).getPostText().length() >20){
+                ids[i] = postits.get(i).getIdPost();    
                 es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
             }
             else { 
@@ -274,8 +306,7 @@ public class ListaPostit extends javax.swing.JFrame {
             jPopupEditar.show(jListPostits, evt.getX(), evt.getY());
             edit.setText("Editar");
             jPopupEditar.add(edit);
-            
-            
+                      
         }
     }//GEN-LAST:event_jListPostitsMouseClicked
 
@@ -308,11 +339,11 @@ public class ListaPostit extends javax.swing.JFrame {
           cadp.setLocationRelativeTo(null);
           cadp.setVisible(true);
           
-        try {
-            this.carregaPostits(this.userListPost.getLogin());
+       /* try {
+            this.carregaEditPostit(this.userListPost.getLogin());
         } catch (RemoteException ex) {
             Logger.getLogger(ListaPostit.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     } 
     /**
      * @param args the command line arguments
