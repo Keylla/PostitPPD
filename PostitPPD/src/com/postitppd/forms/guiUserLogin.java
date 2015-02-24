@@ -38,11 +38,7 @@ public class guiUserLogin extends javax.swing.JFrame {
      */
     public static final int RET_OK = 1;
 
-    /**
-     * Creates new form guiUserLogin
-     * @param parent
-     * @param modal
-     */
+
     public guiUserLogin() {
         
         this.setLocationRelativeTo(null);

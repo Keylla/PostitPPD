@@ -113,7 +113,6 @@ public class CadastraPostit extends javax.swing.JFrame {
                  listCadPost.carregaEditPostit(userCadPost.getLogin());
                 }
             
-           // listCadPost.carregaPostits(userCadPost.getLogin());
         } catch (RemoteException ex) {
             Logger.getLogger(CadastraPostit.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -55,7 +55,7 @@ public class Server extends UnicastRemoteObject implements PostitPPDInt {
         boolean loginOK = false;
         User userLogin = null;
         userLogin = this.getUser(login);
-        if(userLogin != null && userLogin.getSenha().equals(senha)){
+        if(userLogin != null && userLogin.getSenha().equals(senha)&& userLogin.getLogin().equals(login)){
             loginOK = true;  
         }
         return loginOK;

@@ -119,24 +119,21 @@ public class ListaPostit extends javax.swing.JFrame {
         int y = (screenSize.height/2)-350; 
         ArrayList<Postit> postits = new ArrayList<>();
         postits = clientListPost.getUserPostit(userListPost.getLogin());
-        Object[]esOut = es;
-        Object[]idsOut = ids;
         es = new Object[postits.size()];
         ids = new Object[postits.size()];
-        for(int a = 0; a<esOut.length;a++){
-            es[a]=esOut[a];
-            ids[a]=idsOut[a];
+        
+          for (int i = 0; i <= postits.size()-1; i++){
+            if(postits.get(i).getPostText().length() >20){
+                ids[i] = postits.get(i).getIdPost();    
+                es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
+            }
+            else { 
+            ids[i] = postits.get(i).getIdPost();    
+            es[i] = postits.get(i).getPostText();
+            }        
         }
         FormPostit formp;
         int i = postits.size()-1;
-        if(postits.get(i).getPostText().length() >20){
-            ids[i] = postits.get(i).getIdPost(); 
-            es[i] = postits.get(i).getPostText().substring(1, 16)+" ...";
-            }
-         else { 
-            ids[i] = postits.get(i).getIdPost();    
-            es[i] = postits.get(i).getPostText();
-        }
         formp = new FormPostit();
         formp.getJtxtpostit().setText(postits.get(i).getPostText());
         listJframe.add(formp);   

@@ -7,6 +7,7 @@ package com.postitppd.forms;
 
 import com.postitppd.rmi.Client;
 import java.rmi.RemoteException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -68,6 +69,11 @@ public class guiUserCadastro extends javax.swing.JFrame {
         jlSenha.setText("Senha: ");
 
         jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jlbNome.setText("Nome:");
 
@@ -145,6 +151,14 @@ public class guiUserCadastro extends javax.swing.JFrame {
        }
         
     }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        // TODO add your handling code here:
+        guiUserLogin guiUser = new guiUserLogin();
+        this.clientUser = null;
+        guiUser.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -26,8 +26,7 @@ import org.json.simple.parser.ParseException;
  * @author Keylla
  */
 public class ManipulaJson {
-    //public String saidaPostit = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaPostit.json";
-    //public String saidaUser = "C:\\Users\\"+System.getProperty("user.name")+"\\Documents\\saidaUser.json";
+    
     public String saidaUser = "saidaUser.json";
     public String saidaPostit = "saidaPostit.json";
    
